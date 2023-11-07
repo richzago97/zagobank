@@ -24,7 +24,7 @@ class CreateUserRequest extends FormRequest
         return [
             'email' => ['required', 'email'],
             'name' => ['required'],
-            'cpf' => ['required'],
+            'cpf' => ['required','regex:/^\d{11}$/'],
             'password' => ['required', 'min: 7']
         ];
     }
@@ -33,6 +33,7 @@ class CreateUserRequest extends FormRequest
         return [
             'name.required' => 'Nome é obrigatório',
             'cpf.required' => 'CPF é obrigatório',
+            'cpf.regex' => 'O formato está inválido, coloque apenas números.',
             'password.required' => 'Senha é obrigatória',
             'password.min' => 'Senha deve conter no mínimo 7 caracteres',
             'email.required' => 'Email é obrigatório',
