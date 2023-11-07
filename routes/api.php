@@ -13,3 +13,7 @@ Route::group([
     // Route::post('/forget-password', [AuthController::class, 'forgetPassword']);
     // Route::post('/send-password', [AuthController::class, 'sendPassword']);
 });
+
+Route::middleware('jwt.verify')->group(function() {  
+    Route::post('/users/{id}/deposits', [UserController::class, 'deposit']);
+});
