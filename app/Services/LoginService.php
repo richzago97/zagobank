@@ -3,13 +3,10 @@
 namespace App\Services;
 
 use App\Exceptions\AppError;
-use App\Models\User;
-use Error;
-use Illuminate\Support\Facades\Log;
+
 
 class LoginService {
     public function execute(array $data) {
-        Log::debug('Service Login');
 
         if(!$token = auth()->attempt($data)) {
             throw new AppError('Email ou senha incorretos', 401);
