@@ -3,9 +3,11 @@
 namespace App\Http\Middleware;
 
 use App\Exceptions\AppError;
-use Illuminate\Support\Facades\Request;
+use Illuminate\Http\Request;
 use Closure;
 use Tymon\JWTAuth\Exceptions\JWTException;
+use Tymon\JWTAuth\Exceptions\TokenExpiredException;
+use Tymon\JWTAuth\Exceptions\TokenInvalidException;
 use Tymon\JWTAuth\Facades\JWTAuth;
 
 class JWTMiddleware {
@@ -14,6 +16,12 @@ class JWTMiddleware {
             JWTAuth::parseToken()->authenticate();
             return $next($request);
         } catch (JWTException $error) {
+            if ($error instanceof TokenInvalidException) {
+                throw new AppError("Token inválido", 498);
+            }
+            if ($error instanceof TokenExpiredException) {
+                throw new AppError("Token expirado", 401);
+            }
            throw new AppError($error->getMessage(), 500);
         }
     }

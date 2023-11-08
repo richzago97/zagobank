@@ -8,7 +8,7 @@ class CreateDepositRequest extends FormRequest
 {
     public function authorize(): bool
     {
-        return true;
+        return auth()->user()->id === $this->route('id');
     }
 
     public function rules(): array
