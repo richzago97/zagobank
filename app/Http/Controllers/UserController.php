@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\{CreateUserRequest, CreateDepositRequest};
+use App\Services\CreateDepositService;
 use App\Services\CreateUserService;
 use Illuminate\Http\Request;
 
@@ -14,6 +15,11 @@ class UserController extends Controller {
     }
 
     public function deposit(CreateDepositRequest $request){
-        return '3';
+        $createDepositService = new CreateDepositService();
+
+        return $createDepositService->execute(
+            auth()->user()->id,
+            $request->value
+        );
     }
 }
