@@ -4,7 +4,6 @@ namespace App\Services;
 
 use App\Exceptions\AppError;
 use App\Models\User;
-use Error;
 
 class CreateUserService {
     public function execute(array $data) {
